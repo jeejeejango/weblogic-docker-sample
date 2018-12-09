@@ -1,5 +1,5 @@
 # WebLogic Docker sample with applications
-This docker image is built using the sample [here](https://github.com/oracle/docker-images/tree/master/OracleWebLogic/samples/12213-domain-home-in-image)
+This docker sample is built using the [WebLogic on Docker](https://github.com/oracle/docker-images/tree/master/OracleWebLogic) and the [12213-domain-home-in-image](https://github.com/oracle/docker-images/tree/master/OracleWebLogic/samples/12213-domain-home-in-image)
 
 ## Running the WebLogic sample
 This is a quick instructions on running the weblogic servers in docker container. We will create the following servers:
@@ -71,3 +71,6 @@ To remove the sample containers, run:
 ```bash
 docker rm wlsadmin MS1 MS2
 ```
+
+# Copyright
+This is a sample to demo the Oracle WebLogic in Docker. Please refer to Oracle for all rights for the Oracle WebLogic.
