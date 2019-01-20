@@ -66,6 +66,34 @@ You can also execute from either MS1 or MS2 using port 8001 or 8002 instead of 7
 ### Demo Web
 The demo web provides a simple UI to display the response from the demo-service REST API using [http://localhost:7001/demo-web/hello](http://localhost:7001/demo-web/hello)
 
+## Running WebLogic Domain only
+If you need to run WebLogic domain without the sample apps, you can perform the following alternative steps:
+
+### To start the Admin Server
+You will need to map the domain user_projects to the local directory. You will need to deploy the applications
+after weblogic has started.
+
+```bash
+docker run -d --name wlsadmin --hostname wlsadmin -p 7001:7001 \
+  --env-file ./container-scripts/domain.properties -e ADMIN_PASSWORD=welcome1 \
+  -v $PWD/user_projects:/u01/oracle/user_projects jeejeejango/weblogic-domain:12213
+```
+
+### Adding Managed Servers
+When wlsadmin is running, you can start the managed server 1:
+```bash
+docker run -d --name MS1 --link wlsadmin:wlsadmin -p 8001:8001 \
+  --env-file ./container-scripts/domain.properties -e ADMIN_PASSWORD=welcome1 -e MS_NAME=MS1 \
+  --volumes-from wlsadmin jeejeejango/weblogic-domain:12213 createServer.sh
+```
+
+and to start the managed server 2:
+```bash
+docker run -d --name MS2 --link wlsadmin:wlsadmin -p 8002:8001 \
+  --env-file ./container-scripts/domain.properties -e ADMIN_PASSWORD=welcome1 -e MS_NAME=MS2 \
+  --volumes-from wlsadmin jeejeejango/weblogic-domain:12213 createServer.sh
+```
+
 ## Clean-up
 To remove the sample containers, run:
 ```bash
